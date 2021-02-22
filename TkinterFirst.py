@@ -12,12 +12,16 @@ class Application(tk.Frame):
         self.master = master
         self.pack()
         self.create_widgets()
+
+        self.master.bind('<Key>', self.key_press)
+        
         self.count = 0
         self.last_selection = 100
 
         # mutli-player. randomly choose abcd and input and each number correlates with a color
 
         self.choose_button()
+        
   
         
 
@@ -45,7 +49,7 @@ class Application(tk.Frame):
         else:
             button = self.button4
 
-        print(button['highlightbackground'] == 'red')
+        # print("Was it the button red:", button['highlightbackground'] == 'red')
         if num == 0:
             color_name = 'red'
         
@@ -61,8 +65,8 @@ class Application(tk.Frame):
             color_name = 'black'
 
 
-        print(color_name, button)
-        button.configure(highlightbackground=color_name)
+        # print("Changed to", color_name, " Button:", button)
+        button.configure(highlightbackground = color_name)
 
 
 
@@ -73,14 +77,22 @@ class Application(tk.Frame):
             return
             
         functions = [1, 2, 3, 4]
-        print("last selection:", self.last_selection)
+        # print("last selection:", self.last_selection)
         if self.last_selection != 100:
             functions.remove(self.last_selection)
-        print("functions list:", functions)
+        # print("functions list:", functions)
         selection = random.choice(functions)
-        print("selection:", selection)
+        # print("selection:", selection)
         self.last_selection = selection
         self.change_color(button_num = selection, num = 0)
+
+    def key_press(self, event):
+        key = event.char
+        if key.isnumeric():
+            key = int(key)
+        print(key, 'is pressed')
+        self.change_color(button_num=key,num=1)
+        
 
         
 
