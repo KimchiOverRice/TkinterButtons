@@ -99,7 +99,8 @@ class Application(tk.Frame):
                 if the_button['highlightbackground'] == i:
                     color_id = colors.index(i)
                     
-            # increase the count     
+            # increase the count
+            print("color_id:", color_id)
             self.count[color_id-1] = self.count[color_id-1] + 1
 
             print("count: ", self.count)
@@ -116,8 +117,8 @@ class Application(tk.Frame):
     def choose_button(self, old, color_number):
 
         if any(i >= 4 for i in self.count):
-            self.end_message = tk.Label(self, text="The end!", font=("Courier", 44))
-            self.end_message.place(anchor= "center", x = 400, y = 400)
+            winner = self.count.index(4)
+            self.end(winner)
             return
         
         print("after the end check") 
@@ -156,6 +157,20 @@ class Application(tk.Frame):
         print(key, 'is pressed')
         if key in range(1, 5):
             self.change_color(button_num=key,color_num=0)
+
+    def end(self, color_index):
+        colors = ['black', 'red', 'green', 'blue']
+        
+        winners_message = "The " + colors[color_index+1] + " player won!"
+
+        self.end_message0 = tk.Label(self, text="CONGRATULATIONS!", font=("Courier", 40))
+        self.end_message0.place(anchor= "center", x = 400, y = 350)
+        
+        self.end_message1 = tk.Label(self, text=winners_message, font=("Courier", 20))
+        self.end_message1.place(anchor= "center", x = 400, y = 400)
+
+
+        
         
 
         
